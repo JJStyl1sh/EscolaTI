@@ -1,0 +1,215 @@
+## Sumário
+
+1. [Segurança e Autenticação](#1-segurança-e-autenticação)
+2. [Usuário e Planos](#2-usuário-e-planos)
+3. [Veículos](#3-veículos)
+4. [Manutenção e Diagnóstico](#4-manutenção-e-diagnóstico)
+5. [Conteúdo Educativo](#5-conteúdo-educativo)
+6. [Pagamentos](#6-pagamentos)
+7. [Desempenho e Escalabilidade](#7-desempenho-e-escalabilidade)
+8. [Compliance e LGPD](#8-compliance-e-lgpd)
+9. [Anexos](#anexos)
+
+---
+
+## 1. Segurança e Autenticação
+
+| ID       | Nome                            | Tipo        | Descrição                                                                                                          |
+| -------- | ------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `RB-01`  | Autenticação obrigatória        | Integridade | Todo acesso às funcionalidades do sistema requer autenticação válida (JWT/Token).                                  |
+| `RB-02`  | Criptografia de dados sensíveis | Compliance  | Dados pessoais, localização, informações automotivas e pagamento devem ser criptografados em trânsito e em repouso.|
+| `RB-03`  | Proteção de dados por usuário   | Permissão   | Um usuário não pode acessar dados de outro usuário.                                                                |
+
+**Validações:**
+
+- `RB-01`: Bloquear requisições sem token válido.
+- `RB-02`: Verificar TLS e criptografia AES/SHA.
+- `RB-03`: Retornar erro `403 Forbidden` ao tentar acessar recurso de outro usuário.
+
+---
+
+## 2. Usuário e Planos
+
+| ID       | Nome                          | Tipo      | Descrição                                                                                     |
+| -------- | ----------------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| `RB-04`  | Unicidade de e-mail           | Integridade | E-mail deve ser único no cadastro de usuários.                                               |
+| `RB-05`  | Campos obrigatórios no cadastro | Integridade | Nome, e-mail e senha são obrigatórios para criar conta.                                     |
+| `RB-06`  | Plano Premium                 | Decisão   | Usuário com plano Premium (R$ 100/mês) tem acesso a funcionalidades exclusivas.              |
+| `RB-07`  | Expiração de assinatura       | Workflow  | Se a assinatura expirar, o usuário perde acesso às funcionalidades premium automaticamente.  |
+
+**Validações:**
+
+- `RB-04`: Retornar erro de duplicidade ao cadastrar e-mail existente.
+- `RB-05`: Bloquear cadastro com campos incompletos.
+- `RB-06`: Verificar status da assinatura antes de liberar recursos premium.
+- `RB-07`: Verificar data de validade a cada requisição premium.
+
+---
+
+## 3. Veículos
+
+| ID       | Nome                          | Tipo         | Descrição                                                                                              |
+| -------- | ----------------------------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| `RB-08`  | Veículo pertence a um usuário | Integridade  | Todo veículo cadastrado deve estar vinculado a exatamente 1 usuário.                                   |
+| `RB-09`  | Campos obrigatórios do veículo| Integridade  | Marca, modelo, ano e placa são obrigatórios.                                                           |
+| `RB-10`  | Unicidade de placa            | Integridade  | A placa do veículo deve ser única no sistema.                                                          |
+| `RB-11`  | Tipos de veículos suportados  | Configuração | Inicialmente apenas automóveis; futuramente motocicletas, caminhões e ônibus.                          |
+| `RB-12`  | Limite de veículos por plano  | Decisão      | Usuário gratuito: **1 veículo**. Usuário Premium: **5 veículos**.                                      |
+
+**Validações:**
+
+- `RB-08`: Bloquear cadastro de veículo sem usuário vinculado.
+- `RB-09`: Bloquear cadastro com campos incompletos.
+- `RB-10`: Retornar erro de duplicidade ao cadastrar placa existente.
+- `RB-11`: Validar tipo de veículo permitido.
+- `RB-12`: Bloquear cadastro se limite de veículos for atingido.
+
+---
+
+## 4. Manutenção e Diagnóstico
+
+| ID       | Nome                      | Tipo            | Descrição                                                                                                        |
+| -------- | ------------------------- | --------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `RB-13`  | Diagnóstico sem veículo   | Comportamento   | O usuário pode solicitar diagnóstico sem ter veículo cadastrado, porém a resposta será **genérica**.             |
+| `RB-14`  | Diagnóstico com veículo   | Comportamento   | Se o usuário tiver veículo cadastrado, o diagnóstico será **personalizado** (marca, modelo, ano).                |
+| `RB-15`  | Histórico de manutenções  | Auditoria       | O sistema deve registrar todo histórico de diagnósticos e manutenções realizadas.                                |
+| `RB-16`  | Consulta à IA obrigatória | Cálculo/Decisão | O diagnóstico deve consultar a API GPTMaker para gerar orientações.                                              |
+| `RB-17`  | Fallback de IA            | Proteção        | Se a API de IA estiver indisponível, exibir mensagem de erro amigável e registrar log.                           |
+
+**Validações:**
+
+- `RB-13`: Permitir consulta sem veículo.
+- `RB-14`: Utilizar dados do veículo se disponível.
+- `RB-15`: Log automático a cada operação.
+- `RB-16`: Tratar erro se API indisponível.
+- `RB-17`: Implementar retry + mensagem de indisponibilidade.
+
+---
+
+## 5. Conteúdo Educativo
+
+| ID       | Nome                             | Tipo        | Descrição                                                                        |
+| -------- | -------------------------------- | ----------- | -------------------------------------------------------------------------------- |
+| `RB-18`  | Vídeos vinculados a procedimentos | Integridade | Cada vídeo educativo deve estar categorizado por tipo de manutenção/procedimento.|
+| `RB-19`  | Acesso a vídeos exclusivos       | Decisão     | Alguns vídeos são exclusivos para usuários Premium.                              |
+
+**Validações:**
+
+- `RB-18`: Bloquear upload de vídeo sem categoria.
+- `RB-19`: Verificar plano do usuário antes de exibir vídeo exclusivo.
+
+---
+
+## 6. Pagamentos
+
+| ID       | Nome                              | Tipo         | Descrição                                                                                  |
+| -------- | --------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
+| `RB-20`  | Pagamento vinculado a usuário     | Integridade  | Todo pagamento deve pertencer a exatamente 1 usuário.                                      |
+| `RB-21`  | Registro de transação             | Auditoria    | Toda transação de pagamento deve ser registrada com data, valor e status.                  |
+| `RB-22`  | Ativação de Premium após pagamento| Workflow     | Ao confirmar pagamento, o sistema deve ativar o plano Premium automaticamente.             |
+| `RB-23`  | Estorno em caso de cancelamento   | Comportamento| Ao cancelar assinatura dentro do prazo, o sistema deve processar estorno conforme política.|
+
+**Validações:**
+
+- `RB-20`: Bloquear pagamento sem vínculo com usuário.
+- `RB-21`: Log automático de todas as transações.
+- `RB-22`: Transição de status automática.
+- `RB-23`: Registrar estorno e atualizar status da assinatura.
+
+---
+
+## 7. Desempenho e Escalabilidade
+
+| ID       | Nome                         | Tipo         | Descrição                                                                         |
+| -------- | ---------------------------- | ------------ | --------------------------------------------------------------------------------- |
+| `RB-24`  | Tempo de resposta            | Desempenho   | O sistema deve responder em tempo quase real (< 3 segundos para operações críticas).|
+| `RB-25`  | Cache de consultas frequentes| Configuração | Consultas repetidas (peças, vídeos) devem utilizar cache para otimizar performance.|
+
+**Validações:**
+
+- `RB-24`: Monitoramento de latência em todas as APIs.
+- `RB-25`: Invalidação de cache programada.
+
+---
+
+## 8. Compliance e LGPD
+
+| ID       | Nome                   | Tipo       | Descrição                                                                            |
+| -------- | ---------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `RB-26`  | Consentimento de dados | Compliance | O usuário deve aceitar os termos de uso e política de privacidade antes do cadastro. |
+| `RB-27`  | Direito ao esquecimento| Compliance | O usuário pode solicitar exclusão de seus dados pessoais.                            |
+| `RB-28`  | Log de alterações      | Auditoria  | Toda alteração em dados sensíveis deve ser registrada em log de auditoria.           |
+
+**Validações:**
+
+- `RB-26`: Bloquear cadastro sem aceite dos termos.
+- `RB-27`: Processo de anonimização/exclusão de dados.
+- `RB-28`: Log automático com timestamp e autor.
+
+---
+
+## Anexos
+
+### A. Glossário de Tipos de Regra
+
+| Tipo              | Descrição                                              |
+| ----------------- | ------------------------------------------------------ |
+| Integridade       | Garante consistência e validade dos dados              |
+| Permissão         | Define quem pode acessar ou executar algo              |
+| Decisão           | Determina comportamento baseado em condições           |
+| Workflow          | Define fluxo de processos automatizados                |
+| Comportamento     | Especifica como o sistema deve agir em cenários específicos |
+| Configuração      | Define parâmetros e limites do sistema                 |
+| Auditoria         | Registra ações para rastreabilidade                    |
+| Compliance        | Garante conformidade com leis e regulamentos           |
+| Proteção          | Define mecanismos de fallback e recuperação            |
+| Desempenho        | Define métricas de performance esperadas               |
+| Cálculo/Decisão   | Envolve processamento ou lógica de decisão             |
+
+---
+
+### B. Comparativo de Planos
+
+| Funcionalidade              | Gratuito | Premium (R$ 100/mês) |
+| --------------------------- | :------: | :------------------: |
+| Veículos cadastrados        |    1     |          5           |
+| Diagnósticos personalizados |    Sim*  |         Sim          |
+| Vídeos exclusivos           |    Nao   |         Sim          |
+| Funcionalidades premium     |    Nao   |         Sim          |
+
+> *Requer veículo cadastrado para personalização.
+
+---
+
+### C. Dados Envolvidos por Regra
+
+| Regra    | Entidades                          |
+| -------- | ---------------------------------- |
+| RB-01    | Usuário, Token                     |
+| RB-02    | Usuário, Pagamento, Veículo        |
+| RB-03    | Usuário, Veículo, Histórico        |
+| RB-04    | Usuário                            |
+| RB-05    | Usuário                            |
+| RB-06    | Usuário, Assinatura                |
+| RB-07    | Assinatura                         |
+| RB-08    | Veículo, Usuário                   |
+| RB-09    | Veículo                            |
+| RB-10    | Veículo                            |
+| RB-11    | Veículo                            |
+| RB-12    | Veículo, Usuário, Assinatura       |
+| RB-13    | Diagnóstico                        |
+| RB-14    | Diagnóstico, Veículo               |
+| RB-15    | Histórico, Veículo                 |
+| RB-16    | Diagnóstico, API Externa           |
+| RB-17    | Diagnóstico, Log                   |
+| RB-18    | Vídeo, Categoria                   |
+| RB-19    | Vídeo, Assinatura                  |
+| RB-20    | Pagamento, Usuário                 |
+| RB-21    | Pagamento, Log                     |
+| RB-22    | Pagamento, Assinatura              |
+| RB-23    | Pagamento, Assinatura              |
+| RB-24    | Todas as APIs                      |
+| RB-25    | Cache, API                         |
+| RB-26    | Usuário, Consentimento             |
+| RB-27    | Usuário, Dados                     |
+| RB-28    | Log, Usuário                       |
