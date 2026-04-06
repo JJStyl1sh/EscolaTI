@@ -25,18 +25,23 @@ export default function OnboardingScreen() {
         backgroundColor="transparent"
       />
 
+      {/* Imagem de fundo - substitua pelo require da sua imagem */}
       <ImageBackground
         source={require("../assets/images/onboarding-bg.jpg")}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
+        {/* Logo */}
         <Image
           source={require("../assets/images/logo-white.png")}
           style={styles.logo}
           resizeMode="contain"
         />
       </ImageBackground>
+
+      {/* Card inferior */}
       <View style={styles.bottomCard}>
+        {/* Botão "Já tenho uma conta" */}
         <TouchableOpacity
           style={styles.primaryButton}
           onPress={() => router.push("/login")}
@@ -44,6 +49,8 @@ export default function OnboardingScreen() {
         >
           <Text style={styles.primaryButtonText}>Já tenho uma conta</Text>
         </TouchableOpacity>
+
+        {/* Botão "Criar nova conta" */}
         <TouchableOpacity
           style={styles.outlineButton}
           onPress={() => router.push("/register")}
@@ -52,12 +59,14 @@ export default function OnboardingScreen() {
           <Text style={styles.outlineButtonText}>Criar nova conta</Text>
         </TouchableOpacity>
 
+        {/* Divisor "ou" */}
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
           <Text style={styles.dividerText}>ou</Text>
           <View style={styles.dividerLine} />
         </View>
 
+        {/* Botão Google */}
         <TouchableOpacity style={styles.outlineButton} activeOpacity={0.8}>
           <Text style={styles.outlineButtonText}>
             Acesse com o <Text style={{ color: Colors.googleBlue }}>G</Text>

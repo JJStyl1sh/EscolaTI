@@ -2,14 +2,14 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-    Dimensions,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { Colors, Fonts } from "../constants/theme";
 
@@ -64,11 +64,13 @@ export default function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        {/* Localização */}
         <View style={styles.locationContainer}>
           <Ionicons name="location-outline" size={16} color={Colors.black} />
           <Text style={styles.locationText}>Av. Brasil, 123</Text>
         </View>
 
+        {/* Header: saudação + carrinho */}
         <View style={styles.headerRow}>
           <Text style={styles.greeting}>Olá, Marina!</Text>
           <TouchableOpacity style={styles.cartButton}>
@@ -76,6 +78,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Barra de pesquisa */}
         <View style={styles.searchBar}>
           <View style={styles.searchIconWrapper}>
             <Ionicons name="search" size={20} color={Colors.white} />
@@ -89,10 +92,12 @@ export default function HomeScreen() {
           />
         </View>
 
+        {/* Categorias - linha 1 */}
         <View style={styles.categoriaRow}>
           {CATEGORIAS.map(renderCategoria)}
         </View>
 
+        {/* Banner de anúncio de loja */}
         <TouchableOpacity style={styles.bannerCard} activeOpacity={0.8}>
           <View style={styles.bannerContent}>
             <View style={styles.bannerTextArea}>
@@ -117,17 +122,21 @@ export default function HomeScreen() {
           </View>
         </TouchableOpacity>
 
+        {/* Categorias - linha 2 */}
         <View style={styles.categoriaRow}>
           {CATEGORIAS2.map(renderCategoria)}
         </View>
 
+        {/* Espaço para o menu inferior não cobrir */}
         <View style={{ height: 80 }} />
       </ScrollView>
 
+      {/* Menu inferior */}
       <View style={styles.bottomNav}>
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => setTabAtiva("home")}
+          activeOpacity={0.8}
         >
           <View
             style={[
@@ -138,7 +147,7 @@ export default function HomeScreen() {
             <Ionicons
               name="home"
               size={22}
-              color={tabAtiva === "home" ? Colors.white : Colors.textLight}
+              color={tabAtiva === "home" ? Colors.white : Colors.primary}
             />
           </View>
         </TouchableOpacity>
@@ -146,6 +155,7 @@ export default function HomeScreen() {
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => setTabAtiva("categorias")}
+          activeOpacity={0.8}
         >
           <View
             style={[
@@ -154,29 +164,9 @@ export default function HomeScreen() {
             ]}
           >
             <Ionicons
-              name="grid-outline"
+              name="car-outline"
               size={22}
-              color={
-                tabAtiva === "categorias" ? Colors.white : Colors.textLight
-              }
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => setTabAtiva("pedidos")}
-        >
-          <View
-            style={[
-              styles.navIconWrapper,
-              tabAtiva === "pedidos" && styles.navIconActive,
-            ]}
-          >
-            <Ionicons
-              name="receipt-outline"
-              size={22}
-              color={tabAtiva === "pedidos" ? Colors.white : Colors.textLight}
+              color={tabAtiva === "categorias" ? Colors.white : Colors.primary}
             />
           </View>
         </TouchableOpacity>
@@ -184,14 +174,19 @@ export default function HomeScreen() {
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => setTabAtiva("perfil")}
+          activeOpacity={0.8}
         >
           <View
             style={[
-              styles.avatarWrapper,
-              tabAtiva === "perfil" && styles.avatarActive,
+              styles.navIconWrapper,
+              tabAtiva === "perfil" && styles.navIconActive,
             ]}
           >
-            <Ionicons name="person" size={22} color={Colors.textLight} />
+            <Ionicons
+              name="person-outline"
+              size={22}
+              color={tabAtiva === "perfil" ? Colors.white : Colors.primary}
+            />
           </View>
         </TouchableOpacity>
       </View>
@@ -378,11 +373,11 @@ const styles = StyleSheet.create({
   bottomNav: {
     position: "absolute",
     bottom: 20,
-    left: (width - 268) / 2,
-    width: 268,
-    height: 51,
+    left: (width - 220) / 2,
+    width: 220,
+    height: 56,
     backgroundColor: Colors.white,
-    borderRadius: 25.5,
+    borderRadius: 28,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
@@ -397,25 +392,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   navIconWrapper: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     justifyContent: "center",
     alignItems: "center",
   },
   navIconActive: {
     backgroundColor: Colors.primary,
-  },
-  avatarWrapper: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#E8E8E8",
-  },
-  avatarActive: {
-    borderWidth: 2,
-    borderColor: Colors.primary,
   },
 });

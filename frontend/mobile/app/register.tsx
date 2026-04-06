@@ -25,7 +25,8 @@ export default function RegisterScreen() {
   const [confirmaVisivel, setConfirmaVisivel] = useState(false);
 
   const handleRegister = () => {
-    router.replace("/home");
+    // Protótipo: navega direto sem validação
+    router.replace('/(tabs)');
   };
 
   return (
@@ -39,18 +40,21 @@ export default function RegisterScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
+        {/* Logo */}
         <Image
           source={require("../assets/images/logo-dark.png")}
           style={styles.logo}
           resizeMode="contain"
         />
 
+        {/* Títulos */}
         <Text style={styles.title}>Olá, bem-vindo</Text>
         <Text style={styles.subtitle}>
           Estamos felizes em ter você aqui! Falta pouco para ter seu novo look
           novo.
         </Text>
 
+        {/* Campo Usuário */}
         <Text style={styles.label}>Usuário*</Text>
         <View style={styles.inputContainer}>
           <TextInput
@@ -61,6 +65,7 @@ export default function RegisterScreen() {
           />
         </View>
 
+        {/* Campo E-mail */}
         <Text style={styles.label}>E-mail*</Text>
         <View style={styles.inputContainer}>
           <TextInput
@@ -72,6 +77,7 @@ export default function RegisterScreen() {
           />
         </View>
 
+        {/* Campo Senha */}
         <Text style={styles.label}>Senha*</Text>
         <View style={styles.inputContainer}>
           <TextInput
@@ -92,6 +98,7 @@ export default function RegisterScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Confirmar Senha */}
         <Text style={styles.label}>Confirme sua senha*</Text>
         <View style={styles.inputContainer}>
           <TextInput
@@ -112,6 +119,7 @@ export default function RegisterScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Botão Entrar */}
         <TouchableOpacity
           style={styles.primaryButton}
           onPress={handleRegister}
@@ -120,16 +128,19 @@ export default function RegisterScreen() {
           <Text style={styles.primaryButtonText}>Entrar</Text>
         </TouchableOpacity>
 
+        {/* Já possuo uma conta */}
         <TouchableOpacity onPress={() => router.push("/login")}>
           <Text style={styles.linkText}>Já possuo uma conta</Text>
         </TouchableOpacity>
 
+        {/* Divisor "ou" */}
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
           <Text style={styles.dividerText}>ou</Text>
           <View style={styles.dividerLine} />
         </View>
 
+        {/* Botão Google */}
         <TouchableOpacity style={styles.outlineButton} activeOpacity={0.8}>
           <Text style={styles.outlineButtonText}>
             Crie sua conta com o{" "}

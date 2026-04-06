@@ -23,7 +23,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     // Protótipo: navega direto sem validação
-    router.replace("/home");
+    router.replace('/(tabs)');
   };
 
   return (
@@ -37,17 +37,20 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
+        {/* Logo */}
         <Image
           source={require("../assets/images/logo-dark.png")}
           style={styles.logo}
           resizeMode="contain"
         />
 
+        {/* Títulos */}
         <Text style={styles.title}>Olá, de novo</Text>
         <Text style={styles.subtitle}>
           Sentimos sua falta! Precisando de um look novo?
         </Text>
 
+        {/* Campo E-mail */}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -60,6 +63,7 @@ export default function LoginScreen() {
           />
         </View>
 
+        {/* Campo Senha */}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -81,10 +85,12 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Esqueci minha senha */}
         <TouchableOpacity style={styles.forgotPassword}>
           <Text style={styles.forgotPasswordText}>Esqueci minha senha</Text>
         </TouchableOpacity>
 
+        {/* Botão Entrar */}
         <TouchableOpacity
           style={styles.primaryButton}
           onPress={handleLogin}
@@ -93,16 +99,19 @@ export default function LoginScreen() {
           <Text style={styles.primaryButtonText}>Entrar</Text>
         </TouchableOpacity>
 
+        {/* Criar uma conta */}
         <TouchableOpacity onPress={() => router.push("/register")}>
           <Text style={styles.createAccountText}>Criar uma conta</Text>
         </TouchableOpacity>
 
+        {/* Divisor "ou" */}
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
           <Text style={styles.dividerText}>ou</Text>
           <View style={styles.dividerLine} />
         </View>
 
+        {/* Botão Google */}
         <TouchableOpacity style={styles.outlineButton} activeOpacity={0.8}>
           <Text style={styles.outlineButtonText}>
             Acesse com o <Text style={{ color: Colors.googleBlue }}>G</Text>
