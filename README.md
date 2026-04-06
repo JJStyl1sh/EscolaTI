@@ -1,94 +1,50 @@
-# EscolaTI
+# Welcome to your Expo app 👋
 
-## Alunos
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-- Bruno Valério Abrahim
-- Gabriel Rodrigues Soares
-- João Fernando Ehlers  
-- Leonardo Xavier Rodrigues  
-- Hugo Vinícius Fonseca Zuin  
-- Henrique Pacheco Alves  
+## Get started
 
-## Aplicativo de Orientação para Manutenção Automotiva
+1. Install dependencies
 
-### 🚀 Tecnologias Utilizadas
+   ```bash
+   npm install
+   ```
 
-#### Backend
+2. Start the app
 
-- Java  
-- Spring Boot  
+   ```bash
+   npx expo start
+   ```
 
-#### Frontend
+In the output, you'll find options to open the app in a
 
-- React
-- TypeScript
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-#### Mobile
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-- React Native  
+## Get a fresh project
 
----
+When you're ready, run:
 
-### 🧠 Padrões e Ferramentas de Apoio
+```bash
+npm run reset-project
+```
 
-- Integração com modelos de Inteligência Artificial (ChatGPT / GPTMaker)  
-- Bases de dados de peças automotivas  
-- Biblioteca de vídeos educativos para procedimentos de manutenção  
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
----
+## Learn more
 
-### 🔌 APIs Utilizadas
+To learn more about developing your project with Expo, look at the following resources:
 
-- GPTMaker  
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
----
+## Join the community
 
-## ⚠️ Requisitos Conflitantes
+Join our community of developers creating universal apps.
 
-- Dependência de múltiplas bases de dados externas  
-- Limitações de tempo para desenvolvimento e integração das tecnologias  
-
----
-
-## ⚡ Desempenho
-
-A aplicação foi projetada para ser rápida e prática, utilizando mensageria dinâmica com foco em análises eficientes e respostas em tempo quase real ao usuário.
-
----
-
-## 🔐 Segurança
-
-O sistema deve garantir alto nível de segurança, especialmente no tratamento de informações sensíveis, incluindo:
-
-- Dados pessoais do usuário  
-- Localização  
-- Informações automotivas  
-- Dados de pagamento  
-
----
-
-## 📈 Escalabilidade
-
-A arquitetura do projeto permite expansão futura para outros tipos de veículos, como:
-
-- Motocicletas  
-- Caminhões  
-- Ônibus  
-
----
-
-## 💰 Custos
-
-- **Custo estimado do projeto:** R$ 500,00  
-
----
-
-## 👤 Planos de Usuário
-
-- **Plano Premium:** R$ 100,00 mensais  
-
----
-
-## 📚 Contexto Acadêmico
-
-Projeto desenvolvido como atividade prática para uma escola de Tecnologia da Informação, com foco em arquitetura de software, integração de APIs, segurança, desempenho e escalabilidade.
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
